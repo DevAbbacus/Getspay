@@ -1,0 +1,78 @@
+<?php
+/**
+ * Created by PhpStorm.
+ * User: maintux
+ * Date: 23/02/17
+ * Time: 11:35
+ */
+
+$objectManager = \Magento\Framework\App\ObjectManager::getInstance();
+$tokenCollection = $objectManager->get('Magento\Framework\Registry')->registry('token_collection');
+$helper = $this->helper('EasyNolo\BancaSellaPro\Helper\Data');
+
+if ($tokenCollection && count($tokenCollection)):
+?>
+<form class="form token"
+            novalidate
+            action="<?= $block->escapeUrl($block->getUrl('gestpay/token/save', ['_secure' => true])) ?>"
+            method="post"
+            id="token-validate-detail">
+<table class="data table table-order-items history" id="my-saved-cards-table">
+    <thead>
+        <tr>
+            <th scope="col" class="col"><?php echo __('Card #') ?></th>
+            <th scope="col" class="col"><?php echo __('Vendor') ?></th>
+            <th scope="col" class="col"><?php echo __('Number') ?></th>
+            <th scope="col" class="col"><?php echo __('Expiration Date') ?></th>
+            <th scope="col" class="col" style="text-align: center;"><?php echo __('Token Type') ?></th>
+            <th scope="col" class="col" style="text-align: center;"><?php echo __('Default Reccuring Method') ?></th>
+            <th scope="col" class="col"><?php echo __('Actions') ?></th>
+        </tr>
+    </thead>
+    <tbody>
+    <?php foreach($tokenCollection as  $token): ?>
+        <tr>
+            <td style="vertical-align: middle;" class="col"><?php echo $token->getId(); ?></td>
+            <td style="vertical-align: middle;" class="col">
+                <?php $_vendor = $helper->getCardVendor($token->getToken()); ?>
+                <span title="<?php echo $_vendor['label']; ?>">
+                    <i style="font-family: PaymentFont;font-style: normal;font-size: 25px;" class="pf-<?php echo $_vendor['id'] ?>"></i>
+                </span>
+            </td>
+            <td style="vertical-align: middle;" class="col"><?php echo $helper->getFormattedToken($token->getToken()); ?></td>
+            <td style="vertical-align: middle;" class="col"><span class="nobr"><?php echo $token->getExpireAt() && $token->getExpireAt() != '0000-00-00 00:00:00' ? $block->formatDate($token->getExpireAt(), \IntlDateFormatter::LONG) : ''; ?></span></td>
+             <td style="vertical-align: middle;text-align: center;" class="col"><?php echo $token->getTokenType();?></td>
+             <td style="vertical-align: middle;text-align: center;" class="col">
+                <input type="radio" name="is_default" value="<?php echo $token->getId(); ?>" <?php if($token->getIsDefault()==1){ echo 'checked'; } ?> />
+             </td>
+            <td style="vertical-align: middle;" class="col">
+                <?php if(!$token->getProfileId()): ?>
+                    <a onclick="if(!confirm('<?php echo __('Are you sure?') ?>')) { return false; }" href="<?php echo $this->getUrl('bancasellapro/token/delete/', array('_secure' => $this->getRequest()->isSecure(), 'token' => $token->getId())) ?>"><?php echo __('Delete'); ?></a>
+                <?php endif; ?>
+            </td>
+        </tr>
+    <?php endforeach; ?>
+    <tr>
+            <td >&nbsp;</td>
+            <td >
+                &nbsp;
+            </td>
+            <td >&nbsp;</td>
+            <td >&nbsp;</td>
+             <td >&nbsp;</td>
+             <td >
+                <div class="actions" style="text-align: center;">
+                <button class="action token primary" title="<?= $block->escapeHtmlAttr(__('Save')) ?>" type="submit">
+                    <span><?= $block->escapeHtml(__('Save')) ?></span>
+                </button>
+            </div>
+             </td>
+            <td >
+               &nbsp;
+            </td>
+        </tr>
+    </tbody>
+</table>
+
+            </form>
+<?php endif; ?>

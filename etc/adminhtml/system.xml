@@ -1,0 +1,32 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Config:etc/system_file.xsd">
+    <system>
+        <section id="payment">
+            <group id="easynolo_bancasellapro_alternative">
+                <field id="enable_slimpay" translate="label" type="select" sortOrder="200" showInDefault="1" showInWebsite="1" showInStore="0">
+                    <label>Enable SlimPay</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                    <comment>
+                        <![CDATA[Flag to activate SlimPay integration]]>
+                    </comment>
+                </field>
+            </group>
+            <group id="easynolo_bancasellapro_alternative_recurring" translate="label" type="text" sortOrder="90" showInDefault="1" showInWebsite="1" showInStore="1">
+                <label>EasyNolo Banca Sella GestPay Pro Recurring Payments</label>
+                <field id="enable_paypal_recurring" translate="label" type="select" sortOrder="200" showInDefault="1" showInWebsite="1" showInStore="0">
+                    <label>Enable Paypal Recurring</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                    <comment>
+                        <![CDATA[Flag to activate Paypal Recurring Payment integration]]>
+                    </comment>
+                </field>
+                 <field id="paypal_billing_agreement_description" translate="label" type="textarea" sortOrder="210" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>PayPal Billing Agreement Description</label>
+                    <depends>
+                        <field id="enable_paypal_recurring">1</field>
+                    </depends>
+                </field>
+            </group>
+        </section>
+    </system>
+</config>

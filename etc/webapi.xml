@@ -1,0 +1,51 @@
+<?xml version="1.0"?>
+<routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Webapi:etc/webapi.xsd">
+    <route url="/V1/gestpay/payment-methods" method="POST">
+        <service class="Magemonkeys\Gestpay\Api\PaymentMethodsInterface" method="getPaymentMethods"/>
+        <resources>
+            <resource ref="anonymous"/>
+        </resources>
+    </route>
+	<route url="/V1/gestpay/tokens" method="POST">
+        <service class="Magemonkeys\Gestpay\Api\PaymentMethodsInterface" method="getTokens"/>
+        <resources>
+            <resource ref="self"/>
+        </resources>
+    </route>
+    <route url="/V1/gestpay/place-order-using-token" method="POST">
+        <service class="Magemonkeys\Gestpay\Api\PaymentMethodsInterface" method="placeOrderUsingToken"/>
+        <resources>
+            <resource ref="self"/>
+        </resources>
+    </route>
+    <route url="/V1/gestpay/place-order-using-cc" method="POST">
+        <service class="Magemonkeys\Gestpay\Api\PaymentMethodsInterface" method="placeOrderUsingCc"/>
+        <resources>
+            <resource ref="self"/>
+        </resources>
+    </route>
+    <route url="/V1/gestpay/request-iframe-cc-validation" method="POST">
+        <service class="Magemonkeys\Gestpay\Api\PaymentMethodsInterface" method="requestIframeCCValidation"/>
+        <resources>
+            <resource ref="self"/>
+        </resources>
+    </route>
+    <route url="/V1/gestpay/save-cc-token-from-enctypted-string" method="POST">
+        <service class="Magemonkeys\Gestpay\Api\PaymentMethodsInterface" method="saveCCTokenFromEncryptedString"/>
+        <resources>
+            <resource ref="self"/>
+        </resources>
+    </route>
+    <route url="/V1/gestpay/handling-recurring-payments" method="POST">
+        <service class="Magemonkeys\Gestpay\Api\PaymentMethodsInterface" method="handlingRecurringPayments"/>
+        <resources>
+			<resource ref="Magento_Backend::admin"/>
+		</resources>
+    </route>
+    <route url="/V1/gestpay/set-default-reccuring-payment-method" method="POST">
+        <service class="Magemonkeys\Gestpay\Api\PaymentMethodsInterface" method="setDefaultRecurringPaymentMethod"/>
+        <resources>
+            <resource ref="self"/>
+        </resources>
+    </route>
+</routes>

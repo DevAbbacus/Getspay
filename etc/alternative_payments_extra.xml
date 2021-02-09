@@ -1,0 +1,13 @@
+<?xml version="1.0" ?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="alternative_payments.xsd">
+    <alternative_payments>
+        <payment>
+            <code>slimpay</code>
+            <title>SlimPay</title>
+            <type>SEPADD</type>
+            <template>default.phtml</template>
+            <encrypt_helper>Magemonkeys\Gestpay\Helper\AlternativePayments\SlimPay</encrypt_helper>
+        </payment>
+    </alternative_payments>
+</config>

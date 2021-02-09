@@ -1,0 +1,24 @@
+<?xml version="1.0" ?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema">
+    <xs:element name="config">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element minOccurs="1" maxOccurs="unbounded" name="alternative_payments" type="alternativePayments" />
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+    <xs:complexType name="alternativePayments">
+        <xs:sequence>
+            <xs:element minOccurs="1" maxOccurs="unbounded" name="payment" type="payment" />
+        </xs:sequence>
+    </xs:complexType>
+    <xs:complexType name="payment">
+        <xs:sequence>
+            <xs:element minOccurs="1" maxOccurs="1" name="code" />
+            <xs:element minOccurs="1" maxOccurs="1" name="title" />
+            <xs:element minOccurs="1" maxOccurs="1" name="type" />
+            <xs:element minOccurs="0" maxOccurs="1" name="template" />
+            <xs:element minOccurs="0" maxOccurs="1" name="encrypt_helper" />
+        </xs:sequence>
+    </xs:complexType>
+</xs:schema>
